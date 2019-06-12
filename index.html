@@ -4,12 +4,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Technical Documentation Page - Writing a Django app</title>
-
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-
-
   </head>
 
   <body>
@@ -267,7 +263,7 @@
           templates.
           This powerful feature allows you to make global changes to the URL patterns of your project while only
           touching a single file.</p>
-        <p>When you're comfortable with the basic request and response flow, <a href="#part2">keep reading</a> to start
+        <p>When you're comfortable with the basic request and response flow, <a href="#PART_2">keep reading</a> to start
           working with the database.</p>
 
       </section>
@@ -278,8 +274,36 @@
           <h1><a href="https://docs.djangoproject.com/en/2.2/intro/tutorial02/">Part 2</a></h1>
         </header>
         <code></code>
-        <p></p>
-        <p></p>
+        <ol>
+          <li>Database setup</li><a href="#db-setup">Go!</a>
+          <li>Creating models</li><a href="#create-model">Go!</a>
+          <li>Activating models</li><a href="#activate-model">Go!</a>
+          <li>Playing with the API</li><a href="play-api">Go!</a>
+          <li>Introducing the Django Admin</li><a href="#intro-admin">Go!</a>
+        </ol>
+        <br>
+        <article>
+          <h2 id="db-setup">Database setup</h2>
+          <p>Open up <b>mysite/settings.py</b>. It’s a normal Python module with module-level variables representing
+            Django settings.</p>
+          <p>By default, the configuration uses SQLite. SQLite is included in Python, so you won’t need to install
+            anything else to support your database.</p>
+          <p>When starting your first real project, however, you may want to use a more scalable database like
+            PostgreSQL, to avoid database-switching headaches down the road. <b>This is our case.</b></p>
+          <p>We want to use PostgreSQL, then we'll install the appropriate database bindings and change the following
+            keys
+            in the DATABASES 'default' item to match your database connection settings:</p>
+          <ul>
+            <li><b>ENGINE</b> – From <b>'django.db.backends.sqlite3'</b> to <b>'django.db.backends.postgresql'</b>.</li>
+            <li><b>NAME</b> – The name of your database. If you’re using SQLite, the database will be a file on your
+              computer;
+              in that case,
+              NAME should be the full absolute path, including filename, of that file. The default value,
+              os.path.join(BASE_DIR,
+              'db.sqlite3'), will store the file in your project directory.</li>
+          </ul>
+        </article>
+        <br>
         <p></p>
         <p></p>
         <p></p>
@@ -371,7 +395,7 @@
       </section>
     </main>
 
-    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <!--script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script-->
 
 
 
