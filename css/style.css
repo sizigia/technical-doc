@@ -30,6 +30,8 @@ code {
   font-size: 1.5em;
   flex-direction: column;
   grid-column: 1/2;
+  height: 100vh;
+  position: fixed;
 }
 
 @media(max-width: 500px){
@@ -46,8 +48,5 @@ code {
 
   main {
     align-self: center;
-  }
-
-  #navbar {
   }
 }
