@@ -296,22 +296,105 @@
           <ul>
             <li><b>ENGINE</b> – From <b>'django.db.backends.sqlite3'</b> to <b>'django.db.backends.postgresql'</b>.</li>
             <li><b>NAME</b> – The name of your database. If you’re using SQLite, the database will be a file on your
-              computer;
-              in that case,
-              NAME should be the full absolute path, including filename, of that file. The default value,
-              os.path.join(BASE_DIR,
-              'db.sqlite3'), will store the file in your project directory.</li>
+              computer; in that case, <b>NAME</b> should be the full absolute path, including filename, of that file.
+              The default value, os.path.join(BASE_DIR, 'db.sqlite3'), will store the file in your project directory.
+            </li>
           </ul>
+          <p>We are not using SQLite as our database, so we must add additional settings such as <b>USER</b>,
+            <b>PASSWORD</b>, and <b>HOST</b>.</p>
         </article>
+
+        <b>For databases other than SQLite</b>
+
+        <p>As we’re using a PostgreSQL database and not SQLite, we need to make sure we create a database by this point.
+          We do that with “<b>CREATE DATABASE</b> database_name;” within your database’s interactive prompt.
+          This depends a lot on your OS. I'm using Ubuntu 18.04.</p>
+        <p>To configure the
+          database, I followed some simple steps listed in the Ubuntu documentation for <a
+            href="https://help.ubuntu.com/community/PostgreSQL#Alternative_Server_Setup">PostgreSQL</a>. I list them
+          down below:</p>
+
+        <pre>
+          <b># Installation:</b>
+          
+          sudo apt-get install postgresql postgresql-contrib # server locally
+          
+          apt-cache search postgres # support packages
+          
+          sudo apt-get install pgadmin3 # gui
+
+          <b># Basic Server Setup - if you intend to connect to the database from other machines:</b>
+          
+          sudo -u postgres psql postgres
+          # this connects as a role with same name as the local user, i.e. "postgres", to the database called "postgres" (1st
+          argument to psql)
+          
+          \password postgres 
+          # set a password for the "postgres" database role
+          
+          \q or Ctrl+D
+          #exit
+
+          <b># Create database:</b>
+
+          sudo -u postgres createdb MYDB 
+          # change MYDB for the name you want to give your database
+
+          <b># Alternative Server Setup - if you don't intend to connect to the database from other machines:</b>
+          # By default in Ubuntu, Postgresql is configured to use 'ident sameuser' authentication for any connections from the same
+          machine.
+          The only user who can connect to a fresh install is the postgres user, so here's how to create yourself a database account
+          (which is in this case also a database superuser) with the same name as your login name and then create a password for
+          the user:
+
+          sudo -u postgres createuser --superuser $USER
+          # change $USER for the name you want the superuser to have
+
+          sudo -u postgres psql
+          # access PostgreSQL console
+          
+            postgres=# \password $USER
+            # create a password for the user you created just before
+
+          sudo -u postgres createdb $USER
+
+          psql
+
+          create database ANOTHERDB
+        </pre>
+
+        <p>And, make sure the database user provided in mysite/settings.py has “create database” privileges. This
+          allows automatic creation of a test database which will be needed in a later tutorial.</p>
+        <p>If you’re using SQLite, you don’t need to create anything beforehand - the database file will be created
+          automatically
+          when it is needed.</p>
         <br>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
+        <p>While you’re editing <b>mysite/settings.py</b>, set TIME_ZONE to your time zone.</p>
+        <p>Find your time zone <a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones">here</a>. Example:
+          for UTC+02:00, you can use:</p>
+        <pre>
+        TIME_ZONE = 'Europe/Istanbul'
+        </pre>
+        <p>And, we want to take a look at the <b>INSTALLED_APPS</b> setting at the top of the file. That holds the names
+          of all Django applications that are activated in this Django instance. Apps can be used in multiple projects,
+          and you can package and distribute them for use by others in their projects.</p>
+        <p>By default, <b>INSTALLED_APPS</b> contains the following apps, all of which come with Django:</p>
+        <ul>
+          <li><b>django.contrib.admin</b> – The admin site. You’ll use it shortly.</li>
+          <li><b>django.contrib.auth</b> – An authentication system.</li>
+          <li><b>django.contrib.contenttypes</b> – A framework for content types.</li>
+          <li><b>django.contrib.sessions</b> – A session framework.</li>
+          <li><b>django.contrib.messages</b> – A messaging framework.</li>
+          <li><b>django.contrib.staticfiles</b> – A framework for managing static files.</li>
+        </ul>
+        <p>Some of these applications make use of at least one database table, though, so we need to create the tables
+          in the database before we can use them. To do that, make sure you are in the same folder as <b>manage.py</b>
+          and run the following command:</p>
+        <code>python manage.py migrate</code>
+        <p>The migrate command looks at the <b>INSTALLED_APPS</b> setting and creates any necessary database tables
+          according to the database settings in your <b>mysite/settings.py</b> file and the database migrations shipped
+          with the app. You’ll see a message for each migration it applies. If you’re interested, run the command-line
+          client for our database and type \dt (PostgreSQL) to display the tables Django created.</p>
       </section>
       <section class="main-section" id="PART_3">
         <header>
