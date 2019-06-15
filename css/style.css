@@ -1,3 +1,9 @@
+:root {
+  --color1: rgba(9, 46, 32, 1);
+  --color2: rgba(0, 0, 0, 0.1);
+  --color3: #4b4a49;
+  --color4: #eee8d5;
+}
 body {
   display: grid;
   grid-template-columns: 10vw 5vw 80vw;
@@ -7,24 +13,41 @@ body {
 }
 
 main {
-  color: rgba(9, 46, 32, 1);
+  color: var(--color1);
   grid-column: 3/4;
 }
 
 section {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 1vh 1vh;
+  background-color: var(--color2);
+  border-radius: 40px;
+  margin: 20px;
+  padding: 2vw;
+}
+
+section header {
+  background-color: var(--color1);
+  border-radius: 40px 40px 0px 0px;
+  margin: -20px;
+  padding: 2vw;
 }
 
 code {
-  background-color: #4b4a49;
-  color: #eee8d5;
+  background-color: var(--color3);
+  color: var(--color4);
   padding: 1.5vh;
 }
 
+pre {
+  display: block;
+  font-size: 0.9em;
+  max-width: 20vw;
+}
+
+
+
 #navbar {
   align-items: center;
-  background-color: white;
+  background-color: var(--color4);
   border-right: solid;
   display: flex;
   font-size: 1.5em;
