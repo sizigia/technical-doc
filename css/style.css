@@ -1,8 +1,9 @@
 :root {
   --color1: rgba(9, 46, 32, 1);
   --color2: rgba(0, 0, 0, 0.1);
-  --color3: #4b4a49;
-  --color4: #eee8d5;
+  --color3: rgba(75, 74, 73, 1);
+  --color4: rgba(238, 232, 213, 1);
+  --color5: rgba(255, 255, 255, 1);
 }
 body {
   display: grid;
@@ -20,6 +21,8 @@ main {
 section {
   background-color: var(--color2);
   border-radius: 40px;
+  display: flex;
+  flex-direction: column;
   margin: 20px;
   padding: 2vw;
 }
@@ -27,23 +30,37 @@ section {
 section header {
   background-color: var(--color1);
   border-radius: 40px 40px 0px 0px;
-  margin: -20px;
+  color: var(--color4);
+  
   padding: 2vw;
+}
+
+blockquote {
+  background-color: var(--color2);
+  border: solid 0.2vw;
+  padding: 1vh;
 }
 
 code {
   background-color: var(--color3);
-  color: var(--color4);
+  color: var(--color5);
+  display: block;
+  max-width: 100vw;
   padding: 1.5vh;
 }
 
 pre {
-  display: block;
-  font-size: 0.9em;
-  max-width: 20vw;
+  text-align: left;
+  background-color: var(--color5);
 }
 
+a:link {
+  color: var(--color3);
+}
 
+a:hover {
+  color: var(--color3);
+}
 
 #navbar {
   align-items: center;
